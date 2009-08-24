@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0
-Release:	3.1905svn
+Release:	4.1905svn{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -37,6 +37,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	libsndfile
 BuildRequires:	desktop-file-utils
+BuildRequires:	xorg-x11-font-utils
 Requires:	hicolor-icon-theme
 
 
@@ -143,6 +144,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 25 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-4.1905svn
+- added an extra BR and {?dist} to the spec file
+
 * Sun Aug 02 2009 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-3.1905svn
 - used the latest SVN 1905 release
