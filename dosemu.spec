@@ -53,6 +53,7 @@ programs forever!
 
 
 %build
+echo '.code16;.text;addr32 pushw 4(%esp)' | as -o dummy.o
 %configure --with-fdtarball=%{SOURCE1}
 make %{?_smp_mflags}
 
