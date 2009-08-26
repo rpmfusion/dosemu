@@ -27,6 +27,8 @@ Source1:	%{name}-freedos-bin.tgz
 Source2:	%{name}.desktop
 Source3:	freedos-source.tar.gz
 Group:		Applications/Emulator
+ExclusiveOS:	linux
+ExclusiveArch:	i386
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	bison 
 BuildRequires:	flex
