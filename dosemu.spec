@@ -14,6 +14,9 @@ License:	GPLv2+
 # License info is explained here:
 # http://apps.sourceforge.net/mediawiki/freedos/index.php?title=Main_Page#License
 
+ExclusiveOS:	linux
+ExclusiveArch:	i386
+
 # Got latest revision from SVN:
 #   svn co https://dosemu.svn.sourceforge.net/svnroot/dosemu/trunk dosemu-1.4.0
 #   tar --exclude .svn -czvf dosemu-1.4.0.tgz dosemu-1.4.0
@@ -39,16 +42,15 @@ BuildRequires:	libsndfile
 BuildRequires:	desktop-file-utils
 BuildRequires:	xorg-x11-font-utils
 Requires:	hicolor-icon-theme
-ExclusiveOS:	linux
 
-%if 0%{?fedora} >= 12
-ExclusiveArch: i686
-%endif
-%if 0%{?fedora} >= 11
-ExclusiveArch: i586
-%else
-ExclusiveArch: i386
-%endif
+#%if 0%{?fedora} >= 12
+#ExclusiveArch:	i686
+#%endif
+#%if 0%{?fedora} >= 11
+#ExclusiveArch:	i586
+#%else
+#ExclusiveArch:	i386
+#%endif
 
 
 %description
@@ -63,8 +65,6 @@ programs forever!
 
 
 %build
-echo "SSSSSSSSSSSSSSSS"
-echo '.code16;.text;addr32 pushw 4(%esp)' | as -o dummy.o
 %configure --with-fdtarball=%{SOURCE1}
 make %{?_smp_mflags}
 
