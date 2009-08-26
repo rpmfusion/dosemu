@@ -27,8 +27,6 @@ Source1:	%{name}-freedos-bin.tgz
 Source2:	%{name}.desktop
 Source3:	freedos-source.tar.gz
 Group:		Applications/Emulator
-ExclusiveOS:	linux
-ExclusiveArch:	i386
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	bison 
 BuildRequires:	flex
@@ -41,6 +39,16 @@ BuildRequires:	libsndfile
 BuildRequires:	desktop-file-utils
 BuildRequires:	xorg-x11-font-utils
 Requires:	hicolor-icon-theme
+ExclusiveOS:	linux
+
+%if 0%{?fedora} >= 12
+ExclusiveArch: i686
+%endif
+%if 0%{?fedora} >= 11
+ExclusiveArch: i586
+%else
+ExclusiveArch: i386
+%endif
 
 
 %description
@@ -55,6 +63,7 @@ programs forever!
 
 
 %build
+echo "SSSSSSSSSSSSSSSS"
 echo '.code16;.text;addr32 pushw 4(%esp)' | as -o dummy.o
 %configure --with-fdtarball=%{SOURCE1}
 make %{?_smp_mflags}
