@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0
-Release:	5.1905svn%{?dist}
+Release:	6.1905svn%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -40,17 +40,10 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	xorg-x11-font-utils
 Requires:	hicolor-icon-theme
 
+# At this time, Dosemu only works with Linux on x86, other ports are welcome.
+
 ExclusiveOS:	linux
 ExclusiveArch:	i386
-
-#%if %{?fedora} >= 12
-#ExclusiveArch:	i686
-#%else
-#%{?fedora} >= 11
-#ExclusiveArch:	i586
-#%else
-#ExclusiveArch:	i386
-#%endif
 
 
 %description
@@ -156,6 +149,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 28 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-6.1905svn
+- added ExclusiveOS and ExclusiveArch to build for i386 only.
+
+* Tue Aug 27 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-5.1905svn
+- tested some new builds
+
 * Tue Aug 25 2009 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-4.1905svn
 - added an extra BR and {?dist} to the spec file
