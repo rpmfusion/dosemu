@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0
-Release:	9.1988svn%{?dist}
+Release:	10.1988svn%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -152,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Oct 13 2009 Justin Zygmont <solarflow99[AT]gmail.com>
-- 1.4.0-9.1988svn
+- 1.4.0-10.1988svn
 - updated the release to make a tag
 
 * Mon Oct 12 2009 Justin Zygmont <solarflow99[AT]gmail.com>
