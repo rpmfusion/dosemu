@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DOSEMU
+GenericName=DOS emulator
+Comment=A DOS Emulator for linux
+Exec=dosemu
+Icon=dosemu
+Terminal=false
+Type=Application
+Categories=System;Emulator;
