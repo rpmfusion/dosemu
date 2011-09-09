@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0
-Release:	10.2053svn%{?dist}
+Release:	11.2053svn%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
