@@ -45,7 +45,7 @@ Requires:	hicolor-icon-theme
 # Plague, may build RPM's for every x86 arch.
 
 ExclusiveOS:	linux
-ExclusiveArch:	i686 x86_64
+ExclusiveArch:	i386 x86_64
 
 
 %description
@@ -69,9 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 make DESTDIR=$RPM_BUILD_ROOT install
 
-desktop-file-install \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
-  %{SOURCE2}
+#desktop-file-install \
+#  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+#  %{SOURCE2}
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 install -p -m 0644 etc/dosemu.xpm ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
@@ -146,7 +146,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/dosemu/drives/d
 %config(noreplace) %{_sysconfdir}/dosemu/dosemu.users
 %config(noreplace) %{_sysconfdir}/dosemu/global.conf
-%{_datadir}/applications/%{name}.desktop
+#%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/dosemu.xpm
 
 
