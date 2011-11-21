@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0
-Release:	8.1999svn%{?dist}
+Release:	12.2058svn%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -151,6 +151,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 03 2011 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-12.2058svn
+- updated the svn build to fix a problem with dosemu hanging on startup
+
+* Thu Sep 01 2011 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-9.2053svn
+- updated the svn build
+
 * Tue Aug 10 2010 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-8.1999svn
 - updated the svn build, added Arch x86_64
