@@ -1,6 +1,6 @@
 Name:		dosemu
-Version:	1.4.0
-Release:	8.1999svn%{?dist}
+Version:	1.4.0.8
+Release:	15.20130205git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -28,6 +28,7 @@ Source2:	%{name}.desktop
 Source3:	freedos-source.tar.gz
 Group:		Applications/Emulators
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+Requires:	hicolor-icon-theme
 BuildRequires:	bison 
 BuildRequires:	flex
 BuildRequires:	slang-devel
@@ -38,7 +39,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	libsndfile
 BuildRequires:	desktop-file-utils
 BuildRequires:	xorg-x11-font-utils
-Requires:	hicolor-icon-theme
+BuildRequires:	git
 
 # At this time, Dosemu only works with Linux on x86, other ports are welcome.
 # ExclusiveArch: %{ix86} can also be used, but some build clients such as
@@ -151,6 +152,23 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 05 2013 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0.8-15.20130205git
+- updated to the latest build, including improvements for easier package builds
+
+* Mon Jun 16 2012 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0.6-14.20120623git
+- updated to the latest build, and changed the release tag for GIT since svn is no longer used
+- updated GNU license URL in freedos dosemu-freedos-bin.tgz
+
+* Mon Oct 03 2011 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-12.2058svn
+- updated the svn build to fix a problem with dosemu hanging on startup
+
+* Thu Sep 01 2011 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0-9.2053svn
+- updated the svn build
+
 * Tue Aug 10 2010 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-8.1999svn
 - updated the svn build, added Arch x86_64
