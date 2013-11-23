@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	15.20130205git%{?dist}
+Release:	16.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -89,6 +89,7 @@ mv -f $RPM_BUILD_ROOT%{_sysconfdir}/{dosemu.conf,dosemu.users,global.conf} \
 $RPM_BUILD_ROOT%{_sysconfdir}/dosemu
 mv -f $RPM_BUILD_ROOT%{_sysconfdir}/drives/* \
 $RPM_BUILD_ROOT%{_sysconfdir}/dosemu/drives
+ln -s /etc/dosemu/dosemu.conf $RPM_BUILD_ROOT%{_sysconfdir}/dosemu.conf
 
 
 %clean
@@ -142,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/THANKS
 %dir %{_sysconfdir}/dosemu
 %dir %{_sysconfdir}/dosemu/drives
+%config(noreplace) %{_sysconfdir}/dosemu.conf
 %config(noreplace) %{_sysconfdir}/dosemu/dosemu.conf
 %config(noreplace) %{_sysconfdir}/dosemu/drives/c
 %config(noreplace) %{_sysconfdir}/dosemu/drives/d
@@ -152,6 +154,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 22 2013 Justin Zygmont <solarflow99[AT]gmail.com>
+- 1.4.0.8-16.20131022git
+- updated to the latest build, fixes many bugs
+- Added a symlink for /etc/dosemu, other minor fixes
+
 * Mon Feb 05 2013 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0.8-15.20130205git
 - updated to the latest build, including improvements for easier package builds
