@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	16.20131022git%{?dist}
+Release:	17.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -155,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Nov 22 2013 Justin Zygmont <solarflow99[AT]gmail.com>
-- 1.4.0.8-16.20131022git
+- 1.4.0.8-17.20131022git
 - updated to the latest build, fixes many bugs
 - Added a symlink for /etc/dosemu, other minor fixes
 
