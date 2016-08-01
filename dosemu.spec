@@ -154,16 +154,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Thu Nov 22 2013 Justin Zygmont <solarflow99[AT]gmail.com>
+* Wed Dec 25 2013 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0.8-18.20131022git
 - updated to the latest build, fixes many bugs
 - Added a symlink for /etc/dosemu, other minor fixes
 
-* Mon Feb 05 2013 Justin Zygmont <solarflow99[AT]gmail.com>
+* Mon Feb 11 2013 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0.8-15.20130205git
 - updated to the latest build, including improvements for easier package builds
 
-* Mon Jun 16 2012 Justin Zygmont <solarflow99[AT]gmail.com>
+* Sun Jun 24 2012 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0.6-14.20120623git
 - updated to the latest build, and changed the release tag for GIT since svn is no longer used
 - updated GNU license URL in freedos dosemu-freedos-bin.tgz
@@ -180,15 +180,15 @@ rm -rf $RPM_BUILD_ROOT
 - 1.4.0-8.1999svn
 - updated the svn build, added Arch x86_64
 
-* Sun Oct 3 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+* Sat Oct 3 2009 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-7.1981svn
 - updated the svn build, and changed ExclusiveArch to i686
 
-* Tue Aug 28 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+* Thu Aug 27 2009 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-6.1905svn
 - added ExclusiveOS and ExclusiveArch to build for i386 only.
 
-* Tue Aug 27 2009 Justin Zygmont <solarflow99[AT]gmail.com>
+* Wed Aug 26 2009 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-5.1905svn
 - tested some new builds
 
@@ -204,7 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 - 1.4.0-2.1868svn
 - fixed some minor problems with the spec file
 
-* Fri Jul 23 2008 Justin Zygmont <solarflow99[AT]gmail.com>
+* Wed Jul 23 2008 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0-1.1868svn
 - Initial RPM release.
 
