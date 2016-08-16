@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	18.20131022git%{?dist}
+Release:	19.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -27,7 +27,7 @@ Source1:	%{name}-freedos-bin.tgz
 Source2:	%{name}.desktop
 Source3:	freedos-source.tar.gz
 Group:		Applications/Emulators
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+
 Requires:	hicolor-icon-theme
 BuildRequires:	bison 
 BuildRequires:	flex
@@ -57,103 +57,61 @@ programs forever!
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
 %configure --with-fdtarball=%{SOURCE1}
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-make DESTDIR=$RPM_BUILD_ROOT install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_bindir}
+%make_install
 
 desktop-file-install \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
-  %{SOURCE2}
+  --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
-install -p -m 0644 etc/dosemu.xpm ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install -p -m 0644 etc/dosemu.xpm %{buildroot}%{_datadir}/pixmaps
 
 # Correct some file permissions 
-chmod 755 $RPM_BUILD_ROOT%{_datadir}/dosemu \
-$RPM_BUILD_ROOT%{_datadir}/dosemu/drive_z \
-$RPM_BUILD_ROOT%{_datadir}/dosemu/drive_z/doc/exe2bin
-chmod +x $RPM_BUILD_ROOT%{_libdir}/dosemu/libplugin*.so
+chmod 755 %{buildroot}%{_datadir}/dosemu \
+%{buildroot}%{_datadir}/dosemu/drive_z \
+%{buildroot}%{_datadir}/dosemu/drive_z/doc/exe2bin
+chmod +x %{buildroot}%{_libdir}/dosemu/libplugin*.so
 
 # Move configuration files to /etc/dosemu to make it FHS compliant
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dosemu/drives
-mv -f $RPM_BUILD_ROOT%{_sysconfdir}/{dosemu.conf,dosemu.users,global.conf} \
-$RPM_BUILD_ROOT%{_sysconfdir}/dosemu
-mv -f $RPM_BUILD_ROOT%{_sysconfdir}/drives/* \
-$RPM_BUILD_ROOT%{_sysconfdir}/dosemu/drives
-ln -s /etc/dosemu/dosemu.conf $RPM_BUILD_ROOT%{_sysconfdir}/dosemu.conf
+mkdir -p %{buildroot}%{_sysconfdir}/dosemu/drives
+mv -f %{buildroot}%{_sysconfdir}/{dosemu.conf,dosemu.users,global.conf} \
+%{buildroot}%{_sysconfdir}/dosemu
+mv -f %{buildroot}%{_sysconfdir}/drives/* \
+%{buildroot}%{_sysconfdir}/dosemu/drives
+ln -s /etc/dosemu/dosemu.conf %{buildroot}%{_sysconfdir}/dosemu.conf
 
+sed -i -e '/Encoding=UTF-8/d' %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files
-%defattr(-,root,root)
-%{_bindir}/dosemu.bin
-%{_bindir}/dosemu
-%{_bindir}/mkfatimage
-%{_bindir}/mkfatimage16
-%{_bindir}/midid
-%{_bindir}/dosdebug
-%{_bindir}/xdosemu
-%{_mandir}/man1/mkfatimage16.1*
-%{_mandir}/man1/midid.1*
-%{_mandir}/man1/dosdebug.1*
-%{_mandir}/man1/dosemu.1*
-%{_mandir}/man1/dosemu.bin.1*
-%{_mandir}/man1/xdosemu.1*
-%{_mandir}/ru/man1/mkfatimage16.1*
-%{_mandir}/ru/man1/dosdebug.1*
-%{_mandir}/ru/man1/dosemu.1*
-%{_mandir}/ru/man1/dosemu.bin.1*
-%{_mandir}/ru/man1/xdosemu.1*
-%dir %{_libdir}/dosemu
-%{_libdir}/dosemu/libplugin*.so
-%dir %{_datadir}/dosemu
-%{_datadir}/dosemu/commands
-%{_datadir}/dosemu/freedos
-%{_datadir}/dosemu/drive_z
-%{_datadir}/dosemu/keymap
-%{_datadir}/dosemu/Xfonts
-%dir %{_docdir}/%{name}-%{version}
-%doc %{_docdir}/%{name}-%{version}/announce
-%doc %{_docdir}/%{name}-%{version}/BUGS
-%doc %{_docdir}/%{name}-%{version}/ChangeLog
-%doc %{_docdir}/%{name}-%{version}/COPYING
-%doc %{_docdir}/%{name}-%{version}/COPYING.DOSEMU
-%doc %{_docdir}/%{name}-%{version}/DANG.txt
-%doc %{_docdir}/%{name}-%{version}/dosemu-HOWTO.txt
-%doc %{_docdir}/%{name}-%{version}/EMUfailure.txt
-%doc %{_docdir}/%{name}-%{version}/NOVELL-HOWTO.txt
-%doc %{_docdir}/%{name}-%{version}/NEWS
-%doc %{_docdir}/%{name}-%{version}/README.bindist
-%doc %{_docdir}/%{name}-%{version}/README.txt
-%doc %{_docdir}/%{name}-%{version}/README-tech.txt
-%doc %{_docdir}/%{name}-%{version}/README.gdb
-%doc %{_docdir}/%{name}-%{version}/sound-usage.txt
-%doc %{_docdir}/%{name}-%{version}/THANKS
-%dir %{_sysconfdir}/dosemu
-%dir %{_sysconfdir}/dosemu/drives
+%{_bindir}/*
+%{_mandir}/man1/*.1*
+%{_mandir}/ru/man1/*.1*
+%{_libdir}/dosemu
+%{_datadir}/dosemu
+%doc %{_docdir}/%{name}-%{version}
 %config(noreplace) %{_sysconfdir}/dosemu.conf
-%config(noreplace) %{_sysconfdir}/dosemu/dosemu.conf
-%config(noreplace) %{_sysconfdir}/dosemu/drives/c
-%config(noreplace) %{_sysconfdir}/dosemu/drives/d
-%config(noreplace) %{_sysconfdir}/dosemu/dosemu.users
-%config(noreplace) %{_sysconfdir}/dosemu/global.conf
+%config(noreplace) %{_sysconfdir}/dosemu
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/dosemu.xpm
 
 
 %changelog
+* Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 1.4.0.8-19.20131022git
+- Clean spec, with Vascom, rfbz #4195
+
 * Wed Dec 25 2013 Justin Zygmont <solarflow99[AT]gmail.com>
 - 1.4.0.8-18.20131022git
 - updated to the latest build, fixes many bugs
