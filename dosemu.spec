@@ -31,6 +31,7 @@ Group:		Applications/Emulators
 Requires:	hicolor-icon-theme
 BuildRequires:	bison 
 BuildRequires:	flex
+BuildRequires:	gcc
 BuildRequires:	slang-devel
 BuildRequires:	libX11-devel
 BuildRequires:	libXxf86vm-devel
