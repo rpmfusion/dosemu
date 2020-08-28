@@ -1,0 +1,59 @@
+From e8c7950a17b7821eff628e191727b13869cddbb2 Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Sun, 23 Aug 2020 16:21:55 +0900
+Subject: [PATCH] memory.h: don't mark pointer to be modified as const
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1866474
+https://bugzilla.rpmfusion.org/show_bug.cgi?id=5663
+
+Pointers to be modified cannot be declared as "const *". gcc10 defaults to -fno-common,
+and with this flag, trying to modify "const *" pointer variable causes segfault.
+---
+ src/arch/linux/mapping/mapping.c | 4 ++--
+ src/include/memory.h             | 7 ++-----
+ 2 files changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/src/arch/linux/mapping/mapping.c b/src/arch/linux/mapping/mapping.c
+index 1d6c0725..19055434 100644
+--- a/src/arch/linux/mapping/mapping.c
++++ b/src/arch/linux/mapping/mapping.c
+@@ -47,8 +47,8 @@ static int kmem_mappings = 0;
+ static struct mem_map_struct kmem_map[MAX_KMEM_MAPPINGS];
+ 
+ static int init_done = 0;
+-unsigned char * const mem_base;
+-char * const lowmem_base;
++unsigned char * mem_base;
++char * lowmem_base;
+ 
+ static struct mappingdrivers *mappingdrv[] = {
+ #ifdef HAVE_SHM_OPEN
+diff --git a/src/include/memory.h b/src/include/memory.h
+index a5d6e96a..3d362a07 100644
+--- a/src/include/memory.h
++++ b/src/include/memory.h
+@@ -213,7 +213,7 @@ void *lowmemp(const void *ptr);
+    restrictions it can be non-zero. Non-zero values block vm86 but at least
+    give NULL pointer protection.
+ */
+-extern unsigned char * const mem_base;
++extern unsigned char * mem_base;
+ 
+ /* lowmem_base points to a shared memory image of the area 0--1MB+64K.
+    It does not have any holes or mapping for video RAM etc.
+@@ -221,11 +221,8 @@ extern unsigned char * const mem_base;
+    DOSEMU writes will not be trapped. This allows easy interference with
+    simx86, NULL page protection, and removal of the VGA protected memory
+    access hack.
+-
+-   It is set "const" to help GCC optimize accesses. In reality it is set only
+-   once, at startup
+ */
+-extern char * const lowmem_base;
++extern char * lowmem_base;
+ 
+ #define UNIX_READ_BYTE(addr)		(*(Bit8u *) (addr))
+ #define UNIX_WRITE_BYTE(addr, val)	(*(Bit8u *) (addr) = (val) )
+-- 
+2.26.2
+

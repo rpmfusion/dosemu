@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	27.20131022git%{?dist}
+Release:	28.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -19,6 +19,11 @@ License:	GPLv2+
 #   tar --exclude .svn -czvf dosemu-1.4.0.tgz dosemu-1.4.0
 
 Source:		%{name}-%{version}.tgz
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1866474
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=5663
+# memory.h: don't mark pointer to be modified as const
+Patch0:    0001-memory.h-don-t-mark-pointer-to-be-modified-as-const.patch
 
 # Made a FreeDOS bootable image, must be done manually.
 
@@ -58,8 +63,12 @@ programs forever!
 
 
 %prep
-%autosetup
+%autosetup -p1
 
+# lto doesn't seem to work:
+# DEBUG: /usr/bin/ld: /tmp/dosemu.bin.1hmolM.ltrans0.ltrans.o: in function `stub_rep__':
+# DEBUG: <artificial>:(.text+0xe): undefined reference to `rep_movs_stos'
+%define _lto_cflags %{nil}
 
 %build
 %configure --with-fdtarball=%{SOURCE1}
@@ -110,6 +119,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Aug 23 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0.8-28.20131022git
+- Don't mark pointers to be modified as const (bug 5663)
+- Disable lto for now
+
 * Mon Aug 17 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.4.0.8-27.20131022git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
