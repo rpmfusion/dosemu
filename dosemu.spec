@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	28.20131022git%{?dist}
+Release:	29.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.4.0.8-29.20131022git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
 * Sun Aug 23 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0.8-28.20131022git
 - Don't mark pointers to be modified as const (bug 5663)
 - Disable lto for now
