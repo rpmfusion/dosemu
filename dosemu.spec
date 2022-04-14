@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	31.20131022git%{?dist}
+Release:	32.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -44,7 +44,8 @@ BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	libsndfile
 BuildRequires:	desktop-file-utils
-BuildRequires:	xorg-x11-font-utils
+BuildRequires:	%{_bindir}/bdftopcf
+BuildRequires:	%{_bindir}/mkfontdir
 BuildRequires:	git
 
 # At this time, Dosemu only works with Linux on x86, other ports are welcome.
@@ -53,7 +54,6 @@ BuildRequires:	git
 
 ExclusiveOS:	linux
 ExclusiveArch:	i686 x86_64
-
 
 %description
 DOSEMU is a PC Emulator that allows Linux to run a DOS operating system 
@@ -69,6 +69,13 @@ programs forever!
 # DEBUG: /usr/bin/ld: /tmp/dosemu.bin.1hmolM.ltrans0.ltrans.o: in function `stub_rep__':
 # DEBUG: <artificial>:(.text+0xe): undefined reference to `rep_movs_stos'
 %define _lto_cflags %{nil}
+#gcc -Wl,-warn-common -Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -Wl,-dT,/builddir/build/BUILD/dosemu-1.4.0.8/.package_note-dosemu-1.4.0.8-32.20131022git.fc37.x86_64.ld -Wl,-Ttext,0,-e,_start16,--oformat,binary -nostdlib -s -o ../../1.4.0.8/commands/emufs.sys emufs.o
+#/usr/bin/ld: section .note.gnu.property LMA [0000000000000000,000000000000002f] overlaps section .text LMA [0000000000000000,0000000000000293]
+#collect2: error: ld returned 1 exit status
+#make[2]: *** [Makefile:57: ../../1.4.0.8/commands/emufs.sys] Error 1
+# https://www.mail-archive.com/grub-devel@gnu.org/msg32447.html
+# With binutils 2.36
+%undefine _hardened_build
 
 %build
 %configure --with-fdtarball=%{SOURCE1}
@@ -119,6 +126,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Apr 14 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0.8-32.20131022git
+- Update BR for xorg-x11-font-utils split
+- Undefined _hardened_build for now for binutils 2.36
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.4.0.8-31.20131022git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
