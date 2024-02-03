@@ -1,6 +1,6 @@
 Name:		dosemu
 Version:	1.4.0.8
-Release:	34.20131022git%{?dist}
+Release:	35.20131022git%{?dist}
 Summary:	DOS Emulator for Linux
 URL:		http://dosemu.sf.net
 License:	GPLv2+
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Feb 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.4.0.8-35.20131022git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.4.0.8-34.20131022git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
